@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoom Documentation Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-badge">ZM</span>
+        <div>
+          <h1>Zoom Documentation Generator</h1>
+          <p>Turn your meeting screenshots into a shareable documentation card</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel form-panel">
+      <h2 class="section-title">1 · Meeting details</h2>
+
+      <div class="field">
+        <label for="titleInput">Title</label>
+        <input id="titleInput" type="text" maxlength="80" placeholder="Dokumentasi apel pagi" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label for="dateInput">Date</label>
+        <input id="dateInput" type="text" maxlength="60" placeholder="Jumat, 03/10/2026" autocomplete="off">
+      </div>
+
+      <h2 class="section-title">2 · Zoom screenshots</h2>
+
+      <div class="uploads">
+        <div class="upload" id="drop1">
+          <input type="file" id="file1" accept="image/*" hidden>
+          <div class="upload-preview" id="prev1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <circle cx="9" cy="11" r="2"/>
+              <path d="M3 17l5-4 4 3 3-2 6 5"/>
+            </svg>
+            <strong>Screenshot 1</strong>
+            <span>Speaker / main view — click or drop image</span>
+          </div>
+          <img class="upload-thumb" id="thumb1" alt="">
+          <button class="upload-remove" id="rm1" type="button" title="Remove" hidden>&times;</button>
+        </div>
+
+        <div class="upload" id="drop2">
+          <input type="file" id="file2" accept="image/*" hidden>
+          <div class="upload-preview" id="prev2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="3" y="3" width="8" height="8" rx="1.5"/>
+              <rect x="13" y="3" width="8" height="8" rx="1.5"/>
+              <rect x="3" y="13" width="8" height="8" rx="1.5"/>
+              <rect x="13" y="13" width="8" height="8" rx="1.5"/>
+            </svg>
+            <strong>Screenshot 2</strong>
+            <span>Gallery / participants view — click or drop image</span>
+          </div>
+          <img class="upload-thumb" id="thumb2" alt="">
+          <button class="upload-remove" id="rm2" type="button" title="Remove" hidden>&times;</button>
+        </div>
+      </div>
+
+      <div class="hint">Screenshots are fitted inside the dark frames, centered, never cropped.</div>
+    </section>
+
+    <section class="panel preview-panel">
+      <div class="preview-head">
+        <h2 class="section-title">Preview</h2>
+        <button id="downloadBtn" class="btn-primary" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+          Download PNG
+        </button>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="canvas" width="1268" height="1236"></canvas>
+        <div class="canvas-placeholder" id="canvasPlaceholder">Add a title and your screenshots to see the result</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">Runs 100% in your browser — images never leave your device.</footer>
+</div>
+
+<script src="bg-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
