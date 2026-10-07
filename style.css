@@ -95,7 +95,11 @@ body {
 }
 
 /* ---------- uploads ---------- */
-.uploads { display: grid; gap: 12px; }
+.uploads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
 .upload {
   position: relative;
   border: 1.5px dashed #a8d9f0;
@@ -104,20 +108,20 @@ body {
   cursor: pointer;
   transition: border-color .15s, background .15s;
   overflow: hidden;
-  min-height: 108px;
+  min-height: 104px;
 }
 .upload:hover, .upload.dragover { border-color: var(--blue); background: #eef9ff; }
 .upload.has-image { border-style: solid; border-color: var(--line); background: #0b1115; cursor: default; }
 
 .upload-preview {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 4px; padding: 18px 14px; text-align: center; color: var(--muted);
+  gap: 3px; padding: 12px 8px; text-align: center; color: var(--muted);
 }
-.upload-preview svg { width: 30px; height: 30px; color: var(--blue); margin-bottom: 4px; }
-.upload-preview strong { color: #2a5a75; font-size: 14px; }
-.upload-preview span { font-size: 12px; }
+.upload-preview svg { width: 24px; height: 24px; color: var(--blue); margin-bottom: 2px; }
+.upload-preview strong { color: #2a5a75; font-size: 13px; }
+.upload-preview span { font-size: 11.5px; }
 
-.upload-thumb { display: none; width: 100%; max-height: 190px; object-fit: contain; }
+.upload-thumb { display: none; width: 100%; max-height: 130px; object-fit: contain; }
 .upload.has-image .upload-thumb { display: block; }
 .upload.has-image .upload-preview { display: none; }
 

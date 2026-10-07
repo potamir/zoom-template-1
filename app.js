@@ -15,8 +15,13 @@ const LAYOUT = {
   erase: { x: 20, y: 202, w: 788, h: 590 },
   eraseGrad: ["rgb(208,245,250)", "rgb(196,238,248)"],
 
-  frame1: { x: 29, y: 210, w: 768, h: 305 },   // speaker / main view
-  frame2: { x: 28, y: 522, w: 772, h: 268 },   // gallery view
+  // 2 x 2 grid of dark frames (bg.jpeg coordinates), 7px gaps
+  frames: [
+    { x: 28,  y: 210, w: 382, h: 286 },   // top left
+    { x: 417, y: 210, w: 383, h: 286 },   // top right
+    { x: 28,  y: 503, w: 382, h: 287 },   // bottom left
+    { x: 417, y: 503, w: 383, h: 287 },   // bottom right
+  ],
 
   frameColor: "#0b1115",
   shadow: { color: "rgba(52,130,190,0.38)", blur: 28, offsetY: 5 },
@@ -28,7 +33,7 @@ const LAYOUT = {
 };
 
 /* ---------------- state ---------------- */
-const state = { title: "", date: "", img1: null, img2: null };
+const state = { title: "", date: "", img1: null, img2: null, img3: null, img4: null };
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -102,14 +107,13 @@ function render() {
   ctx.shadowBlur = px(LAYOUT.shadow.blur);
   ctx.shadowOffsetY = px(LAYOUT.shadow.offsetY);
   ctx.fillStyle = LAYOUT.frameColor;
-  for (const f of [LAYOUT.frame1, LAYOUT.frame2]) {
+  for (const f of LAYOUT.frames) {
     ctx.fillRect(px(f.x), px(f.y), px(f.w), px(f.h));
   }
   ctx.restore();
 
-  // 3. screenshots (contain-fit, centered, never cropped)
-  drawContain(state.img1, LAYOUT.frame1);
-  drawContain(state.img2, LAYOUT.frame2);
+  // 3. screenshots in a 2 x 2 grid (contain-fit, centered, never cropped)
+  LAYOUT.frames.forEach((f, i) => drawContain(state["img" + (i + 1)], f));
 
   // 4. title + date in the top-right white box
   drawFittedText(state.title, LAYOUT.title);
@@ -119,9 +123,10 @@ function render() {
 }
 
 function updateUIState() {
-  const hasContent = bgImg && (state.title || state.date || state.img1 || state.img2);
+  const allImages = !!(state.img1 && state.img2 && state.img3 && state.img4);
+  const hasContent = bgImg && (state.title || state.date || state.img1 || state.img2 || state.img3 || state.img4);
   document.getElementById("canvasPlaceholder").classList.toggle("hidden", !!hasContent);
-  document.getElementById("downloadBtn").disabled = !(state.img1 && state.img2);
+  document.getElementById("downloadBtn").disabled = !allImages;
 }
 
 /* ---------------- inputs ---------------- */
@@ -172,6 +177,8 @@ function wireUpload(idx) {
 }
 wireUpload(1);
 wireUpload(2);
+wireUpload(3);
+wireUpload(4);
 
 /* ---------------- download ---------------- */
 document.getElementById("downloadBtn").addEventListener("click", () => {
